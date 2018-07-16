@@ -5,8 +5,8 @@ final FULL_BUILD = params.FULL_BUILD
 // HOST_PROVISION -> server to run ansible based on provision/inventory.ini
 final HOST_PROVISION = params.HOST_PROVISION
 
-final GIT_URL = 'https://github.com/ricardozanini/soccer-stats.git'
-final NEXUS_URL = 'nexus.local:8081'
+final GIT_URL = 'https://github.com/Bujail/soccer-stats.git'
+final NEXUS_URL = 'http://nexus-myproj.35.200.140.217.nip.io'
 
 stage('Build') {
     node {
@@ -61,7 +61,7 @@ if(FULL_BUILD) {
 if(FULL_BUILD) {
     stage('Approval') {
         timeout(time:3, unit:'DAYS') {
-            input 'Do I have your approval for deployment?'
+            input 'Approval for deployment?'
         }
     }
 }
@@ -87,7 +87,7 @@ if(FULL_BUILD) {
                 nexusUrl: NEXUS_URL, 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
-                repository: 'ansible-meetup', 
+                repository: 'ansible-jenkins', 
                 version: "${pom.version}"        
         }
     }
@@ -103,11 +103,11 @@ stage('Deploy') {
         def version = pom.version
 
         if(!FULL_BUILD) { //takes the last version from repo
-            sh "curl -o metadata.xml -s http://${NEXUS_URL}/repository/ansible-meetup/${repoPath}/maven-metadata.xml"
+            sh "curl -o metadata.xml -s http://${NEXUS_URL}/repository/ansible-jenkins/${repoPath}/maven-metadata.xml"
             version = sh script: 'xmllint metadata.xml --xpath "string(//latest)"',
                          returnStdout: true
         }
-        def artifactUrl = "http://${NEXUS_URL}/repository/ansible-meetup/${repoPath}/${version}/${pom.artifactId}-${version}.war"
+        def artifactUrl = "http://${NEXUS_URL}/repository/ansible-jenkins/${repoPath}/${version}/${pom.artifactId}-${version}.war"
 
         withEnv(["ARTIFACT_URL=${artifactUrl}", "APP_NAME=${pom.artifactId}"]) {
             echo "The URL is ${env.ARTIFACT_URL} and the app name is ${env.APP_NAME}"

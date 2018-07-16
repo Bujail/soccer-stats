@@ -11,7 +11,7 @@ final NEXUS_URL = 'http://nexus-myproj.35.200.140.217.nip.io'
 stage('Build') {
     node {
         git GIT_URL
-        withEnv(["PATH+MAVEN=${tool 'm3'}/bin"]) {
+        withEnv(["PATH+MAVEN=${tool 'test-maven-3-3+'}/bin"]) {
             if(FULL_BUILD) {
                 def pom = readMavenPom file: 'pom.xml'
                 sh "mvn -B versions:set -DnewVersion=${pom.version}-${BUILD_NUMBER}"

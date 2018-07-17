@@ -6,7 +6,7 @@ final FULL_BUILD = params.FULL_BUILD
 final HOST_PROVISION = params.HOST_PROVISION
 
 final GIT_URL = 'https://github.com/Bujail/soccer-stats.git'
-final NEXUS_URL = 'http://nexus-myproj.35.200.140.217.nip.io'
+final NEXUS_URL = 'nexus-myproj.35.200.140.217.nip.io'
 
 stage('Build') {
     node {

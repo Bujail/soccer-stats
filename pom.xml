@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.meetup.ansible</groupId>
+	<groupId>test.cicd</groupId>
 	<artifactId>soccer-stats</artifactId>
 	<version>0.0.2</version>
 	<packaging>war</packaging>
@@ -153,7 +153,7 @@
 							<!-- The Base URL of Nexus instance where we want to stage -->
 							<nexusUrl>${NEXUS_URL}</nexusUrl>
 							<!-- The server "id" element from settings to use authentication from -->
-							<serverId>ocp-nexus</serverId>
+							<serverId>test-ci-cd</serverId>
 						</configuration>
 					</plugin>
 				</plugins>

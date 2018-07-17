@@ -103,11 +103,11 @@ stage('Deploy') {
         def version = pom.version
 
         if(!FULL_BUILD) { //takes the last version from repo
-            sh "curl -o metadata.xml -s http://${NEXUS_URL}/repository/ansible-jenkins/${repoPath}/maven-metadata.xml"
+            sh "curl -o metadata.xml -s http://${NEXUS_URL}/repository/test-ci-cd/${repoPath}/maven-metadata.xml"
             version = sh script: 'xmllint metadata.xml --xpath "string(//latest)"',
                          returnStdout: true
         }
-        def artifactUrl = "http://${NEXUS_URL}/repository/ansible-jenkins/${repoPath}/${version}/${pom.artifactId}-${version}.war"
+        def artifactUrl = "http://${NEXUS_URL}/repository/test-ci-cd/${repoPath}/${version}/${pom.artifactId}-${version}.war"
 
         withEnv(["ARTIFACT_URL=${artifactUrl}", "APP_NAME=${pom.artifactId}"]) {
             echo "The URL is ${env.ARTIFACT_URL} and the app name is ${env.APP_NAME}"
